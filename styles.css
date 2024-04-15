@@ -33,13 +33,14 @@ header h1:hover{
     color: white;
 }
 
-/* Tasks */
+/* Input Tasks */
 
 
 #main-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     margin: auto;
     margin-top: 35px;
     padding: 15px;
@@ -67,6 +68,27 @@ input{
     font-size: 1.6em;
     border:none;
     border-radius: 8px;
+}
+
+.tasksCounter{
+    margin-left: 35px;
+    color: white;
+    font-size: 1.4em;
+}
+
+/* Tasks */
+
+.tasks{
+    border: 2px solid black;
+    font-size: 2em;
+}
+
+.taskOperators{
+    background-color: blue;
+}
+
+.taskIndex{
+    color:aliceblue
 }
 
 
