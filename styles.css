@@ -25,6 +25,7 @@ header h1 {
   -1px -1px 1px black;
   padding: 15px;
   color: hsl(0, 0%, 85%);
+  font-weight: bold;
   background: linear-gradient(to right, rgb(173, 83, 137), rgb(60, 16, 83));
   transition: color ease 0.5s;
 }
@@ -55,7 +56,7 @@ header h1:hover{
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: 2px solid black
+    margin-bottom: 10px;
 }
 
 label{
@@ -78,18 +79,68 @@ input{
 
 /* Tasks */
 
-.tasks{
+.singleTaskContainer{
     border: 2px solid black;
+    box-shadow: 1px 1px 4px black,
+    -1px -1px 4px black;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding: 0 20px; 
+}
+
+.task{
     font-size: 2em;
+    color: white;
+    font-weight: bold;
 }
 
 .taskOperators{
-    background-color: blue;
+    background-color: hsl(286, 84%, 25%);
+    width: 110px;
+    height: 40px;
+    border: 2px solid black;
+    margin-left: 6px;
+    border-radius: 15px;
+    font-size: 1.3em;
+    cursor: pointer;
+    text-align: center;
+}
+
+.deleteButton{
+    color: hsl(0, 70%, 58%);
+    transition: color ease 0.5s,
+    border;
+}
+
+.deleteButton:hover{
+    color: red;
+    border: 4px solid black;
+    
+}
+
+.completeButton{
+    color: hsl(180, 66%, 66%);
+    transition: color ease 0.5s,
+    border;
+}
+
+.completeButton:hover{
+    color: hsl(180, 66%, 86%);
+    border: 4px solid black;
+}
+
+.taskOperatorsContainer{
+    margin-left: 30px;
 }
 
 .taskIndex{
     color:aliceblue
 }
+
+
 
 
 
