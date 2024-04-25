@@ -1,10 +1,13 @@
 //Ids
 
 const taskList = document.querySelector(".tasks-container");
+const activeTasks = document.getElementById("activeTasks");
+const completedTasks = document.getElementById("completedTasks");
+const deleteButton = document.querySelector(".deleteButton");
 
 let taskIndex = 1;
-let activeTaskCounter;
-let completedTaskCounter;
+let activeTaskCounter = 0;
+let completedTaskCounter = 0;
 
 //Main
 
@@ -25,7 +28,7 @@ function updateTaskList(){
 
                 const newTask = document.createElement("p")
                 newTask.classList.add("task")
-                newTask.textContent = `${taskIndex}. ${task}`;
+                newTask.textContent = `${task}`;
 
                 newTaskContainer.appendChild(newTask);
 
@@ -34,14 +37,13 @@ function updateTaskList(){
                 taskList.appendChild(newTaskContainer);
                 taskIndex++
 
+                
+                activeTaskCounter++;
+                activeTasks.textContent = `Active Tasks: ${activeTaskCounter}`
+                
+
                 getTask.value = "";
 
-                tasksCounter(taskIndex);
-                console.log(activeTaskCounter);
-                deleteTask();
-                console.log(activeTaskCounter);
-                tasksCounter(taskIndex);
-                
 
                 if(taskIndex > 1){
                     getTask.placeholder = "";
@@ -81,42 +83,48 @@ function createButtons(task){
 
 //Task Counter
 
-function tasksCounter(taskIndex){
 
-    let activeTasks = document.getElementById("activeTasks");
-    let completedTasks = document.getElementById("completedTasks");
-
-    activeTaskCounter = taskIndex - 1;
-
-    activeTasks.textContent = `Active Tasks:${activeTaskCounter}`
-
-
-}
 //Delete/Complete 
 
 function deleteTask(){
 
-    let buttons = document.querySelectorAll(".deleteButton");
-
-    console.log("sieeeema");
-
-    buttons.forEach(button => {
-        button.addEventListener("click", event => {
-            const taskContainer = button.closest('.singleTaskContainer');
-            
+    taskList.addEventListener("click", event => {
+        if (event.target.classList.contains("deleteButton")) {
+            const taskContainer = event.target.closest('.singleTaskContainer');
             taskContainer.remove();
-            buttons = document.querySelectorAll(".singleTaskContainer") 
-            
-        });
+        }
+        activeTaskCounter--;
+        activeTasks.textContent = `Active Tasks: ${activeTaskCounter}`;
     });
-    
 }
 
-function completeTask(){
+function completeTask() {
+    taskList.addEventListener("click", event => {
+        if (event.target.classList.contains("completeButton")) {
+            const taskContainer = event.target.closest('.singleTaskContainer');
+            const task = taskContainer.querySelector('.task');
 
+            if (task.style.textDecoration === "line-through") {
+                task.style.textDecoration = "none"; // Remove line-through style
+                if (completedTaskCounter > 0) {
+                    completedTaskCounter--; // Decrement completed task counter
+                }
+                activeTaskCounter++; // Increment active task counter
+            } else {
+                task.style.textDecoration = "line-through"; // Apply line-through style
+                completedTaskCounter++; // Increment completed task counter
+                if (activeTaskCounter > 0) {
+                    activeTaskCounter--; // Decrement active task counter only if it's greater than 0
+                }
+            }
+
+            // Update completed and active task counters display
+            completedTasks.textContent = `Completed Tasks: ${completedTaskCounter}`;
+            activeTasks.textContent = `Active Tasks: ${activeTaskCounter}`;
+        }
+    });
 }
 
 updateTaskList();
-
-
-
+deleteTask(); // Call deleteTask to set up the event listener
+completeTask();
