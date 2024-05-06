@@ -81,8 +81,6 @@ function createButtons(task){
 
 }
 
-//Task Counter
-
 
 //Delete/Complete 
 
@@ -93,32 +91,38 @@ function deleteTask(){
             const taskContainer = event.target.closest('.singleTaskContainer');
             taskContainer.remove();
         }
-        activeTaskCounter--;
+        if(completedTaskCounter > 0){
+            completedTaskCounter--;
+        }
+
+        if(activeTaskCounter === 0){
+            activeTaskCounter--;
+        }
+        
+        
+        completedTasks.textContent = `Completed Tasks: ${completedTaskCounter}`;
         activeTasks.textContent = `Active Tasks: ${activeTaskCounter}`;
     });
 }
 
 function completeTask() {
     taskList.addEventListener("click", event => {
-        if (event.target.classList.contains("completeButton")) {
+        if (event.target.classList.contains("completeButton")){
             const taskContainer = event.target.closest('.singleTaskContainer');
             const task = taskContainer.querySelector('.task');
-
-            if (task.style.textDecoration === "line-through") {
-                task.style.textDecoration = "none"; // Remove line-through style
-                if (completedTaskCounter > 0) {
-                    completedTaskCounter--; // Decrement completed task counter
-                }
-                activeTaskCounter++; // Increment active task counter
-            } else {
-                task.style.textDecoration = "line-through"; // Apply line-through style
-                completedTaskCounter++; // Increment completed task counter
-                if (activeTaskCounter > 0) {
-                    activeTaskCounter--; // Decrement active task counter only if it's greater than 0
-                }
+            
+            if (task.style.textDecoration === "line-through"){
+                task.style.textDecoration = "none"; 
+                completedTaskCounter--; 
+                activeTaskCounter++; 
+                activeTaskCounter++; 
+            } 
+            else{
+                task.style.textDecoration = "line-through"; 
+                //activeTaskCounter;
+                completedTaskCounter++; 
             }
 
-            // Update completed and active task counters display
             completedTasks.textContent = `Completed Tasks: ${completedTaskCounter}`;
             activeTasks.textContent = `Active Tasks: ${activeTaskCounter}`;
         }
@@ -126,5 +130,5 @@ function completeTask() {
 }
 
 updateTaskList();
-deleteTask(); // Call deleteTask to set up the event listener
+deleteTask(); 
 completeTask();
