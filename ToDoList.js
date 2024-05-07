@@ -43,11 +43,10 @@ function updateTaskList(){
                 
 
                 getTask.value = "";
+            }
 
-
-                if(taskIndex > 1){
-                    getTask.placeholder = "";
-                }
+            if(taskIndex > 1){
+                getTask.placeholder = "";
             }
         }
     }) 
@@ -75,10 +74,6 @@ function createButtons(task){
 
     task.appendChild(taskOperatorsContainer);
 
-    // Adding buttons to the task element
-    // task.appendChild(completedButton);
-    // task.appendChild(deleteButton);
-
 }
 
 
@@ -89,15 +84,17 @@ function deleteTask(){
     taskList.addEventListener("click", event => {
         if (event.target.classList.contains("deleteButton")) {
             const taskContainer = event.target.closest('.singleTaskContainer');
+            const task = taskContainer.querySelector('.task');
             taskContainer.remove();
-        }
-        if(completedTaskCounter > 0){
-            completedTaskCounter--;
-        }
 
-        if(activeTaskCounter === 0){
-            activeTaskCounter--;
+            if(task.style.textDecoration === "line-through"){
+                completedTaskCounter--;
+            }
+            else{
+                activeTaskCounter--;
+            }
         }
+        
         
         
         completedTasks.textContent = `Completed Tasks: ${completedTaskCounter}`;
@@ -112,15 +109,16 @@ function completeTask() {
             const task = taskContainer.querySelector('.task');
             
             if (task.style.textDecoration === "line-through"){
-                task.style.textDecoration = "none"; 
+                task.style.textDecoration = "none";
                 completedTaskCounter--; 
-                activeTaskCounter++; 
-                activeTaskCounter++; 
+                activeTaskCounter++;
+                
             } 
             else{
                 task.style.textDecoration = "line-through"; 
-                //activeTaskCounter;
-                completedTaskCounter++; 
+                completedTaskCounter++;
+                activeTaskCounter--;
+                
             }
 
             completedTasks.textContent = `Completed Tasks: ${completedTaskCounter}`;
